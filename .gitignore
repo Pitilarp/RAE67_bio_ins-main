@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+results/
+.test-*/
+.manual-render/
+lab_03/output/
+lab_03/tests/
+lab_03/instructor_reference.py

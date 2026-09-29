@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SO(2) CPG Hexapod Simulator</title>
+  <style>
+    :root { --ink:#18323c; --teal:#147a8c; --orange:#d97727; --red:#b34848; --pale:#eef6f7; --line:#cbd7da; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:Tahoma,Arial,sans-serif; color:var(--ink); background:#f5f8f9; }
+    header { padding:18px 28px 12px; background:white; border-bottom:1px solid var(--line); }
+    h1 { margin:0 0 6px; font-size:26px; }
+    header p { margin:0; color:#586b73; }
+    main { display:grid; grid-template-columns:minmax(560px,1.65fr) minmax(340px,1fr); gap:16px; padding:16px; max-width:1500px; margin:auto; }
+    .card { background:white; border:1px solid var(--line); border-radius:12px; padding:14px; box-shadow:0 3px 12px #19313a0d; }
+    canvas { width:100%; display:block; border-radius:8px; background:#fbfdfd; }
+    #world { aspect-ratio:16/9; }
+    #plot { aspect-ratio:16/7; }
+    .controls { display:grid; grid-template-columns:1fr 1fr; gap:12px 18px; }
+    label { font-size:14px; font-weight:bold; }
+    label span { float:right; color:var(--teal); }
+    input[type=range] { width:100%; accent-color:var(--teal); }
+    .buttons { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0; }
+    button { border:1px solid var(--teal); color:var(--teal); background:white; border-radius:8px; padding:9px 13px; font-weight:bold; cursor:pointer; }
+    button.primary { background:var(--teal); color:white; }
+    button:hover { filter:brightness(.96); }
+    .metrics { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-top:10px; }
+    .metric { background:var(--pale); border-radius:8px; padding:10px; }
+    .metric b { display:block; font-size:22px; color:var(--teal); margin-top:3px; }
+    .legend { display:flex; gap:18px; align-items:center; font-size:13px; margin:8px 2px 0; }
+    .dot { width:12px; height:12px; border-radius:50%; display:inline-block; margin-right:5px; }
+    pre { margin:10px 0 0; padding:10px; background:#f7fafb; border-radius:8px; white-space:pre-wrap; font-size:12px; }
+    .scope { color:#7b4e22; font-size:13px; line-height:1.5; margin:10px 0 0; }
+    @media (max-width:950px) { main { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+<header>
+  <h1>SO(2) CPG — Hexapod Walking Simulator</h1>
+  <p>หุ่นยนต์หกขา • alternating tripod gait • สมการเดียวกับ Week 3</p>
+</header>
+<main>
+  <section class="card">
+    <canvas id="world" width="960" height="540" aria-label="ภาพจำลองหุ่นยนต์หกขาเดินจากมุมมองด้านบน"></canvas>
+    <div class="legend">
+      <span><i class="dot" style="background:#147a8c"></i>Tripod A: LF, RM, LH</span>
+      <span><i class="dot" style="background:#d97727"></i>Tripod B: RF, LM, RH</span>
+      <span><i class="dot" style="background:#b34848"></i>เท้ายกจากพื้น</span>
+    </div>
+  </section>
+  <aside class="card">
+    <div class="controls">
+      <label>α recurrent gain <span id="alphaValue">1.10</span><input id="alpha" type="range" min="1.01" max="1.50" step="0.01" value="1.10"></label>
+      <label>φ phase increment <span id="phiValue">0.20 rad</span><input id="phi" type="range" min="0.05" max="0.60" step="0.01" value="0.20"></label>
+      <label>Simulation speed <span id="speedValue">1.0×</span><input id="simSpeed" type="range" min="0.25" max="3" step="0.25" value="1"></label>
+      <label>Stride half-length <span id="strideValue">0.055 m</span><input id="stride" type="range" min="0.025" max="0.085" step="0.005" value="0.055"></label>
+    </div>
+    <div class="buttons">
+      <button id="start" class="primary">เริ่ม / หยุดชั่วคราว</button>
+      <button id="reset">Reset</button>
+      <button data-preset="baseline">Baseline</button>
+      <button data-preset="fast">Fast</button>
+      <button data-preset="high_gain">High gain</button>
+      <button id="download">Download CSV</button>
+    </div>
+    <div class="metrics">
+      <div class="metric">เวลา<b id="timeMetric">0.0 s</b></div>
+      <div class="metric">ระยะทาง<b id="distanceMetric">0.000 m</b></div>
+      <div class="metric">ความเร็วเฉลี่ย<b id="velocityMetric">0.000 m/s</b></div>
+      <div class="metric">ความถี่ CPG<b id="frequencyMetric">— Hz</b></div>
+      <div class="metric">ขารองรับ<b id="supportMetric">3 / 6</b></div>
+      <div class="metric">สถานะ<b id="gaitMetric">Tripod A stance</b></div>
+    </div>
+    <pre id="equation">a₁(t+1)=α[cos(φ)o₁(t)+sin(φ)o₂(t)]
+a₂(t+1)=α[−sin(φ)o₁(t)+cos(φ)o₂(t)]
+oᵢ(t+1)=tanh(aᵢ(t+1))</pre>
+    <p class="scope">แบบจำลองเชิงจลนศาสตร์นี้ใช้ตรวจ timing, phase, foot placement และการสลับ tripod ยังไม่จำลองแรงสัมผัส มวล แรงเสียดทาน torque หรือ dynamic stability</p>
+    <canvas id="plot" width="720" height="315" aria-label="กราฟเอาต์พุต CPG"></canvas>
+  </aside>
+</main>
+<script>
+(() => {
+  'use strict';
+  const world=document.getElementById('world'), wc=world.getContext('2d');
+  const plot=document.getElementById('plot'), pc=plot.getContext('2d');
+  const controls={alpha:document.getElementById('alpha'),phi:document.getElementById('phi'),simSpeed:document.getElementById('simSpeed'),stride:document.getElementById('stride')};
+  const legDefs=[
+    {name:'LF',side:-1,fore:-1,sign:1},{name:'LM',side:-1,fore:0,sign:-1},{name:'LH',side:-1,fore:1,sign:1},
+    {name:'RF',side:1,fore:-1,sign:-1},{name:'RM',side:1,fore:0,sign:1},{name:'RH',side:1,fore:1,sign:-1}
+  ];
+  const colors={A:'#147a8c',B:'#d97727',swing:'#b34848',ink:'#18323c',grid:'#dbe4e7'};
+  const dt=.05, liftHeight=.03;
+  let running=true, accumulator=0, last=performance.now(), state, history, crossings, records;
+
+  function reset(){
+    state={o1:.1,o2:0,t:0,bodyX:0,footWorld:{},wasContact:{}};
+    for(const leg of legDefs){state.footWorld[leg.name]=0;state.wasContact[leg.name]=false;}
+    history=[]; crossings=[]; records=[]; accumulator=0;
+    for(let i=0;i<200;i++) cpgOnly();
+    state.t=0; state.bodyX=0;
+    for(const leg of legDefs){state.footWorld[leg.name]=0;state.wasContact[leg.name]=false;}
+    updateMetrics();
+  }
+  function params(){return {alpha:+controls.alpha.value,phi:+controls.phi.value,stride:+controls.stride.value};}
+  function cpgOnly(){
+    const {alpha,phi}=params(), c=Math.cos(phi),s=Math.sin(phi);
+    const a1=alpha*(c*state.o1+s*state.o2), a2=alpha*(-s*state.o1+c*state.o2);
+    state.o1=Math.tanh(a1); state.o2=Math.tanh(a2);
+  }
+  function step(){
+    const oldO1=state.o1, oldBody=state.bodyX, {stride}=params(), legState={}, constraints=[];
+    for(const leg of legDefs){
+      const xRel=stride*leg.sign*state.o1, lift=liftHeight*Math.max(0,leg.sign*state.o2), contact=leg.sign*state.o2<=0;
+      legState[leg.name]={xRel,lift,contact};
+      if(contact&&!state.wasContact[leg.name]) state.footWorld[leg.name]=state.bodyX+xRel;
+      if(contact) constraints.push(state.footWorld[leg.name]-xRel);
+    }
+    if(constraints.length) state.bodyX=constraints.reduce((a,b)=>a+b,0)/constraints.length;
+    for(const leg of legDefs){
+      const ls=legState[leg.name];
+      if(!ls.contact) state.footWorld[leg.name]=state.bodyX+ls.xRel;
+      state.wasContact[leg.name]=ls.contact;
+    }
+    state.t+=dt;
+    records.push({t:state.t,bodyX:state.bodyX,o1:state.o1,o2:state.o2,support:constraints.length});
+    if(records.length>12000) records.shift();
+    history.push({o1:state.o1,o2:state.o2}); if(history.length>260) history.shift();
+    cpgOnly();
+    if(oldO1<=0&&state.o1>0){crossings.push(state.t);if(crossings.length>12)crossings.shift();}
+    state.instantVelocity=(state.bodyX-oldBody)/dt;
+  }
+  function frequency(){
+    if(crossings.length<2)return null;
+    let sum=0;for(let i=1;i<crossings.length;i++)sum+=crossings[i]-crossings[i-1];
+    return (crossings.length-1)/sum;
+  }
+  function updateMetrics(){
+    const support=legDefs.filter(l=>l.sign*state.o2<=0).length, f=frequency();
+    document.getElementById('timeMetric').textContent=state.t.toFixed(1)+' s';
+    document.getElementById('distanceMetric').textContent=state.bodyX.toFixed(3)+' m';
+    document.getElementById('velocityMetric').textContent=(state.t?state.bodyX/state.t:0).toFixed(3)+' m/s';
+    document.getElementById('frequencyMetric').textContent=f?f.toFixed(3)+' Hz':'— Hz';
+    document.getElementById('supportMetric').textContent=support+' / 6';
+    document.getElementById('gaitMetric').textContent=state.o2<=0?'Tripod A stance':'Tripod B stance';
+  }
+  function resizeCanvas(canvas,ctx){
+    const dpr=Math.min(2,devicePixelRatio||1), rect=canvas.getBoundingClientRect(), w=Math.round(rect.width*dpr),h=Math.round(rect.height*dpr);
+    if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;ctx.setTransform(dpr,0,0,dpr,0,0);}
+    return {w:rect.width,h:rect.height};
+  }
+  function drawWorld(){
+    const {w,h}=resizeCanvas(world,wc), scale=760, cx=w*.5, cy=h*.5;
+    wc.clearRect(0,0,w,h); wc.fillStyle='#fbfdfd';wc.fillRect(0,0,w,h);
+    const grid=55, scroll=(state.bodyX*scale)%grid; wc.strokeStyle=colors.grid;wc.lineWidth=1;
+    for(let x=-grid-scroll;x<w+grid;x+=grid){wc.beginPath();wc.moveTo(x,0);wc.lineTo(x,h);wc.stroke();}
+    for(let y=0;y<h;y+=grid){wc.beginPath();wc.moveTo(0,y);wc.lineTo(w,y);wc.stroke();}
+    wc.fillStyle='#71868e';wc.font='13px Tahoma';wc.fillText('พื้นเลื่อนไปด้านหลังตามระยะทางของลำตัว',18,25);
+    const bodyL=220,bodyW=112,legScale=460;
+    wc.save();wc.translate(cx,cy);wc.fillStyle='#dce9eb';wc.strokeStyle=colors.ink;wc.lineWidth=3;
+    wc.beginPath();wc.roundRect(-bodyL/2,-bodyW/2,bodyL,bodyW,30);wc.fill();wc.stroke();
+    wc.fillStyle=colors.ink;wc.beginPath();wc.moveTo(-bodyL/2-22,0);wc.lineTo(-bodyL/2+5,-15);wc.lineTo(-bodyL/2+5,15);wc.closePath();wc.fill();
+    wc.fillStyle=colors.ink;wc.font='bold 16px Tahoma';wc.textAlign='center';wc.fillText('BODY',0,6);
+    const {stride}=params();
+    for(const leg of legDefs){
+      const attachX=leg.fore*78,attachY=leg.side*bodyW/2;
+      const xRel=stride*leg.sign*state.o1, lift=liftHeight*Math.max(0,leg.sign*state.o2), contact=leg.sign*state.o2<=0;
+      const footX=attachX+xRel*legScale, footY=leg.side*(bodyW/2+86);
+      wc.strokeStyle=leg.sign===1?colors.A:colors.B;wc.lineWidth=contact?7:4;wc.globalAlpha=contact?1:.72;
+      wc.beginPath();wc.moveTo(attachX,attachY);wc.quadraticCurveTo(attachX+18,leg.side*(bodyW/2+35),footX,footY);wc.stroke();
+      wc.fillStyle=contact?(leg.sign===1?colors.A:colors.B):colors.swing;
+      const radius=contact?11:8+lift*170;wc.beginPath();wc.arc(footX,footY,radius,0,Math.PI*2);wc.fill();
+      wc.fillStyle=colors.ink;wc.font='bold 12px Tahoma';wc.textAlign=leg.side<0?'right':'left';wc.fillText(leg.name,footX+(leg.side<0?-14:14),footY+4);
+      if(!contact){wc.fillStyle=colors.swing;wc.font='11px Tahoma';wc.fillText('↑ '+(lift*1000).toFixed(0)+' mm',footX+(leg.side<0?-14:14),footY-15);}
+    }
+    wc.globalAlpha=1;wc.restore();
+    wc.fillStyle=colors.ink;wc.font='bold 16px Tahoma';wc.textAlign='left';
+    wc.fillText('x = '+state.bodyX.toFixed(3)+' m',18,h-22);
+  }
+  function drawPlot(){
+    const {w,h}=resizeCanvas(plot,pc),pad={l:42,r:12,t:20,b:27};pc.clearRect(0,0,w,h);pc.fillStyle='#fff';pc.fillRect(0,0,w,h);
+    pc.strokeStyle=colors.grid;pc.lineWidth=1;for(let i=0;i<=4;i++){const y=pad.t+(h-pad.t-pad.b)*i/4;pc.beginPath();pc.moveTo(pad.l,y);pc.lineTo(w-pad.r,y);pc.stroke();}
+    pc.fillStyle=colors.ink;pc.font='12px Tahoma';pc.fillText('o₁ / o₂',8,17);pc.fillText('+1',12,pad.t+4);pc.fillText('0',20,(pad.t+h-pad.b)/2+4);pc.fillText('−1',12,h-pad.b+4);
+    const draw=(key,color)=>{pc.strokeStyle=color;pc.lineWidth=2.5;pc.beginPath();history.forEach((v,i)=>{const x=pad.l+(w-pad.l-pad.r)*i/259,y=pad.t+(1-v[key])*.5*(h-pad.t-pad.b);i?pc.lineTo(x,y):pc.moveTo(x,y);});pc.stroke();};
+    draw('o1',colors.A);draw('o2',colors.B);
+    pc.fillStyle=colors.A;pc.fillRect(w-125,10,18,3);pc.fillStyle=colors.ink;pc.fillText('o₁',w-100,15);pc.fillStyle=colors.B;pc.fillRect(w-65,10,18,3);pc.fillStyle=colors.ink;pc.fillText('o₂',w-40,15);
+  }
+  function frame(now){
+    const elapsed=Math.min(.1,(now-last)/1000);last=now;if(running){accumulator+=elapsed*+controls.simSpeed.value;while(accumulator>=dt){step();accumulator-=dt;}}
+    drawWorld();drawPlot();updateMetrics();requestAnimationFrame(frame);
+  }
+  function syncLabels(){
+    document.getElementById('alphaValue').textContent=(+controls.alpha.value).toFixed(2);
+    document.getElementById('phiValue').textContent=(+controls.phi.value).toFixed(2)+' rad';
+    document.getElementById('speedValue').textContent=(+controls.simSpeed.value).toFixed(2).replace(/0$/,'')+'×';
+    document.getElementById('strideValue').textContent=(+controls.stride.value).toFixed(3)+' m';
+  }
+  Object.values(controls).forEach(c=>c.addEventListener('input',syncLabels));
+  document.getElementById('start').onclick=()=>{running=!running;};
+  document.getElementById('reset').onclick=reset;
+  document.querySelectorAll('[data-preset]').forEach(b=>b.onclick=()=>{const p={baseline:[1.1,.2],fast:[1.1,.4],high_gain:[1.3,.2]}[b.dataset.preset];controls.alpha.value=p[0];controls.phi.value=p[1];syncLabels();reset();});
+  document.getElementById('download').onclick=()=>{
+    const head='time_s,body_x_m,o1,o2,support_legs\n',body=records.map(r=>[r.t,r.bodyX,r.o1,r.o2,r.support].map(v=>typeof v==='number'?v.toFixed(6):v).join(',')).join('\n');
+    const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([head+body],{type:'text/csv'}));a.download='hexapod_cpg_sim.csv';a.click();URL.revokeObjectURL(a.href);
+  };
+  syncLabels();reset();requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

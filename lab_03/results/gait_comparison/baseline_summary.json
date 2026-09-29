@@ -1,0 +1,16 @@
+{
+  "condition": "baseline",
+  "alpha": 1.1,
+  "phi_rad": 0.2,
+  "dt_s": 0.05,
+  "duration_s": 30.0,
+  "warmup_s": 10.0,
+  "distance_m": 2.332679,
+  "mean_speed_m_s": 0.077756,
+  "oscillation_frequency_hz": 0.625,
+  "duty_factor_LF": 0.494176,
+  "minimum_support_legs": 3,
+  "maximum_support_legs": 3,
+  "maximum_foot_clearance_m": 0.017095,
+  "model_scope": "kinematic teaching model; no rigid-body dynamics or contact forces"
+}

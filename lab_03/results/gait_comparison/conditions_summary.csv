@@ -1,0 +1,4 @@
+condition,alpha,phi_rad,dt_s,duration_s,warmup_s,distance_m,mean_speed_m_s,oscillation_frequency_hz,duty_factor_LF,minimum_support_legs,maximum_support_legs,maximum_foot_clearance_m,model_scope
+baseline,1.1,0.2,0.05,30.0,10.0,2.332679,0.077756,0.625,0.494176,3,3,0.017095,kinematic teaching model; no rigid-body dynamics or contact forces
+fast,1.1,0.4,0.05,30.0,10.0,4.665317,0.155511,1.267123,0.500832,3,3,0.017113,kinematic teaching model; no rigid-body dynamics or contact forces
+high_gain,1.3,0.2,0.05,30.0,10.0,2.833701,0.094457,0.544218,0.494176,3,3,0.024637,kinematic teaching model; no rigid-body dynamics or contact forces

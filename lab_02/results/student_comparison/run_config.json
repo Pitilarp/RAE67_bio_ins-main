@@ -1,0 +1,51 @@
+{
+  "protocol": "controller-comparison",
+  "controller_source": "student",
+  "student_file": "D:\\PoomWork\\RAE67_bio_ins-main\\lab_02\\student_controller.py",
+  "student_file_sha256": "dc6db41d17394a47762d71396e0c4e518ec0036ff2c515065fbaefd60c909cbc",
+  "robustness_condition": "C2",
+  "seed_base": 202602,
+  "trial_count": 20,
+  "config": {
+    "dt": 0.02,
+    "duration_s": 20.0,
+    "threshold_m": 0.35,
+    "enter_threshold_m": 0.32,
+    "exit_threshold_m": 0.38,
+    "beta": 0.25,
+    "target_distance_m": 0.35,
+    "kp": 2.0,
+    "command_min": -0.6,
+    "command_max": 0.6,
+    "sensor_min_m": 0.02,
+    "sensor_max_m": 4.0,
+    "stable_duration_s": 0.5
+  },
+  "plan": [
+    {
+      "condition": "C0",
+      "noise_sigma_m": 0.01,
+      "delay_ms": 0,
+      "trials": 5
+    },
+    {
+      "condition": "C1",
+      "noise_sigma_m": 0.01,
+      "delay_ms": 0,
+      "trials": 5
+    },
+    {
+      "condition": "C2",
+      "noise_sigma_m": 0.01,
+      "delay_ms": 0,
+      "trials": 5
+    },
+    {
+      "condition": "C3",
+      "noise_sigma_m": 0.01,
+      "delay_ms": 0,
+      "trials": 5
+    }
+  ],
+  "claim_boundary": "Proposed course model; validate all limits before real-hardware use."
+}

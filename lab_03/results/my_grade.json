@@ -1,0 +1,33 @@
+{
+  "student_file": "D:\\PoomWork\\RAE67_bio_ins-main\\lab_03\\student_cpg.py",
+  "passed": true,
+  "passed_count": 5,
+  "total_count": 5,
+  "checks": [
+    {
+      "name": "ไม่มี TODO ค้าง",
+      "passed": true,
+      "detail": "OK"
+    },
+    {
+      "name": "สมการ SO(2)",
+      "passed": true,
+      "detail": "OK"
+    },
+    {
+      "name": "simultaneous update",
+      "passed": true,
+      "detail": "OK"
+    },
+    {
+      "name": "alternating tripod decoder",
+      "passed": true,
+      "detail": "OK"
+    },
+    {
+      "name": "bounded Week 4 handoff",
+      "passed": true,
+      "detail": "OK"
+    }
+  ]
+}

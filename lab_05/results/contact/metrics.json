@@ -1,0 +1,110 @@
+{
+  "matched": {
+    "case": "matched",
+    "samples": 600,
+    "valid_sif_rows": 551,
+    "unavailable_sif_rows": 49,
+    "mean_absolute_error": 0.0,
+    "mean_sif": 0.0,
+    "mean_si": {
+      "LF": 1.0,
+      "RM": 1.0,
+      "LH": 1.0,
+      "RF": 1.0,
+      "LM": 1.0,
+      "RH": 1.0
+    },
+    "first_valid_sample_s": 2.45,
+    "claim_boundary": "synthetic paired signals; proposed Pearson definition; no robot/terrain/hormone feedback"
+  },
+  "gain-offset": {
+    "case": "gain-offset",
+    "samples": 600,
+    "valid_sif_rows": 551,
+    "unavailable_sif_rows": 49,
+    "mean_absolute_error": 0.1628437878668761,
+    "mean_sif": 1.3820233075528691e-17,
+    "mean_si": {
+      "LF": 1.0,
+      "RM": 1.0,
+      "LH": 1.0,
+      "RF": 1.0,
+      "LM": 1.0,
+      "RH": 1.0
+    },
+    "first_valid_sample_s": 2.45,
+    "claim_boundary": "synthetic paired signals; proposed Pearson definition; no robot/terrain/hormone feedback"
+  },
+  "mixed-delay": {
+    "case": "mixed-delay",
+    "samples": 600,
+    "valid_sif_rows": 551,
+    "unavailable_sif_rows": 49,
+    "mean_absolute_error": 0.22600735106701011,
+    "mean_sif": 0.4999953397685721,
+    "mean_si": {
+      "LF": 1.0,
+      "RM": 1.0,
+      "LH": 1.0,
+      "RF": 9.320462855838167e-06,
+      "LM": 9.320462855838167e-06,
+      "RH": 9.320462855838167e-06
+    },
+    "first_valid_sample_s": 2.45,
+    "claim_boundary": "synthetic paired signals; proposed Pearson definition; no robot/terrain/hormone feedback"
+  },
+  "all-inverted": {
+    "case": "all-inverted",
+    "samples": 600,
+    "valid_sif_rows": 551,
+    "unavailable_sif_rows": 49,
+    "mean_absolute_error": 0.6313751514675049,
+    "mean_sif": 5.271635296851151e-18,
+    "mean_si": {
+      "LF": -1.0,
+      "RM": -1.0,
+      "LH": -1.0,
+      "RF": -1.0,
+      "LM": -1.0,
+      "RH": -1.0
+    },
+    "first_valid_sample_s": 2.45,
+    "claim_boundary": "synthetic paired signals; proposed Pearson definition; no robot/terrain/hormone feedback"
+  },
+  "constant": {
+    "case": "constant",
+    "samples": 600,
+    "valid_sif_rows": 0,
+    "unavailable_sif_rows": 600,
+    "mean_absolute_error": 0.0,
+    "mean_sif": null,
+    "mean_si": {
+      "LF": null,
+      "RM": null,
+      "LH": null,
+      "RF": null,
+      "LM": null,
+      "RH": null
+    },
+    "first_valid_sample_s": null,
+    "claim_boundary": "synthetic paired signals; proposed Pearson definition; no robot/terrain/hormone feedback"
+  },
+  "fault": {
+    "case": "fault",
+    "samples": 600,
+    "valid_sif_rows": 501,
+    "unavailable_sif_rows": 99,
+    "mean_absolute_error": 0.0,
+    "mean_sif": 0.0,
+    "mean_si": {
+      "LF": 1.0,
+      "RM": 1.0,
+      "LH": 1.0,
+      "RF": 1.0,
+      "LM": 1.0,
+      "RH": 1.0
+    },
+    "first_valid_sample_s": 2.45,
+    "claim_boundary": "synthetic paired signals; proposed Pearson definition; no robot/terrain/hormone feedback"
+  }
+}

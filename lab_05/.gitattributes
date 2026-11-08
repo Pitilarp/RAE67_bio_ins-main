@@ -1,0 +1,2 @@
+# Keep source and manifest bytes identical after Windows/Linux clones.
+* -text

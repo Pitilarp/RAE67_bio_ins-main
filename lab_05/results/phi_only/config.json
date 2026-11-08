@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "dt_s": 0.05,
+  "duration_s": 30.0,
+  "warmup_s": 10.0,
+  "warmup_command": {
+    "alpha": 1.1,
+    "phi_rad": 0.2
+  },
+  "warmup_reset": "H/R, body origin, foot anchors, and logs reset after common baseline CPG warmup",
+  "conditions": {
+    "B0": {
+      "description": "Fixed R=0",
+      "rates": null
+    },
+    "B1": {
+      "description": "Direct R=S",
+      "rates": null
+    },
+    "B2": {
+      "description": "Hormone: production=.8 clearance=.6 binding=.2",
+      "rates": [
+        0.8,
+        0.6,
+        0.2
+      ]
+    },
+    "B3": {
+      "description": "Binding ablation: production=.8 clearance=.6 binding=0",
+      "rates": [
+        0.8,
+        0.6,
+        0.0
+      ]
+    }
+  },
+  "initial_states": {
+    "B0": {
+      "o1": -0.026965330782974153,
+      "o2": -0.5608626776309884,
+      "hormone_h": null,
+      "receptor_r": 0.0,
+      "body_x_m": 0.0
+    },
+    "B1": {
+      "o1": -0.026965330782974153,
+      "o2": -0.5608626776309884,
+      "hormone_h": null,
+      "receptor_r": 0.0,
+      "body_x_m": 0.0
+    },
+    "B2": {
+      "o1": -0.026965330782974153,
+      "o2": -0.5608626776309884,
+      "hormone_h": 0.0,
+      "receptor_r": 0.0,
+      "body_x_m": 0.0
+    },
+    "B3": {
+      "o1": -0.026965330782974153,
+      "o2": -0.5608626776309884,
+      "hormone_h": 0.0,
+      "receptor_r": 0.0,
+      "body_x_m": 0.0
+    }
+  },
+  "profile": "step",
+  "mapping_mode": "phi-only",
+  "schedule": {
+    "on_start_s": 10,
+    "off_start_s": 20,
+    "fault_input_s": 15,
+    "spike_width_s": 0.05
+  },
+  "randomness": "none; deterministic repeated runs are not independent trials",
+  "time_convention": "input/command t_k -> simultaneous CPG/body -> hormone end state t_(k+1); direct B1 uses S_k immediately",
+  "contract_sha256": "50debd932cc9f548ba2e01fafc2b22476640d276e22c09f6b82090493b4e9fca",
+  "claim_boundary": "proposed course model; scheduled input; kinematic motion; no terrain/contact-force feedback",
+  "source": {
+    "doi": "10.1109/ACCESS.2020.2992794",
+    "role": "architecture/reference; this runner does not reproduce the paper controller"
+  }
+}

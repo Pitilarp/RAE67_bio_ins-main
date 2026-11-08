@@ -1,0 +1,108 @@
+{
+  "B2": {
+    "condition": "B2",
+    "profile": "spike",
+    "mapping_mode": "both",
+    "duration_s": 30.0,
+    "state_rows": 601,
+    "updates": 600,
+    "distance_m": 2.3324269882754303,
+    "mean_speed_m_s": 0.07774756627584768,
+    "peak_h": 0.04000000000000001,
+    "peak_r_used": 0.04000000000000001,
+    "auc_h_left_normalized_s": 0.049999995781170384,
+    "phi_total_variation_rad": 0.015999999296861744,
+    "stride_total_variation_m": 0.0007999999648430831,
+    "phi_max_step_rad": 0.008000000000000007,
+    "stride_max_step_m": 0.0003999999999999976,
+    "fault_count": 0,
+    "h_upper_clamp_fraction": 0.0,
+    "h_lower_clamp_fraction": 0.0,
+    "phi_clamp_count": 0,
+    "stride_clamp_count": 0,
+    "command_latency_s": null,
+    "command_recovery_s": null,
+    "command_rise_10_90_s": null,
+    "state_latency_s": null,
+    "na_reasons": {
+      "command_latency_s": "timing is defined only for B1/B2/B3 with step profile",
+      "command_recovery_s": "timing is defined only for B1/B2/B3 with step profile",
+      "command_rise_10_90_s": "timing is defined only for B1/B2/B3 with step profile",
+      "state_latency_s": "timing is defined only for B1/B2/B3 with step profile"
+    },
+    "segments": {
+      "pre": {
+        "start_s": 0.0,
+        "end_s": 10.0,
+        "interval_count": 200,
+        "distance_m": 0.7763201624937458,
+        "mean_speed_m_s": 0.07763201624937457,
+        "frequency_hz": 0.624877697939268,
+        "complete_period_count": 5,
+        "frequency_reason": null,
+        "crossing_times_s": [
+          0.7886774796880514,
+          2.3889902986250107,
+          3.9893032844387544,
+          5.58961643806258,
+          7.1899297604272485,
+          8.790243252461
+        ],
+        "mean_phi_rad": 0.2,
+        "mean_stride_half_m": 0.055,
+        "min_support_legs": 3,
+        "max_support_legs": 3
+      },
+      "on": {
+        "start_s": 10.0,
+        "end_s": 20.0,
+        "interval_count": 200,
+        "distance_m": 0.7845619277055974,
+        "mean_speed_m_s": 0.07845619277055974,
+        "frequency_hz": 0.6274466103346846,
+        "complete_period_count": 6,
+        "frequency_reason": null,
+        "crossing_times_s": [
+          10.378082787750056,
+          11.950280703968646,
+          13.542419428390343,
+          15.14051589023935,
+          16.740228850715923,
+          18.340379743233836,
+          19.94064938891403
+        ],
+        "mean_phi_rad": 0.2009997035336716,
+        "mean_stride_half_m": 0.05504998517668357,
+        "min_support_legs": 3,
+        "max_support_legs": 3
+      },
+      "off": {
+        "start_s": 20.0,
+        "end_s": 30.0,
+        "interval_count": 200,
+        "distance_m": 0.7715448980760871,
+        "mean_speed_m_s": 0.07715448980760871,
+        "frequency_hz": 0.6248775584000692,
+        "complete_period_count": 5,
+        "frequency_reason": null,
+        "crossing_times_s": [
+          21.540951329494614,
+          23.1412621447892,
+          24.74157549103179,
+          26.341889650378015,
+          27.942204158131283,
+          29.542518889068933
+        ],
+        "mean_phi_rad": 0.20000029638195183,
+        "mean_stride_half_m": 0.055000014819097595,
+        "min_support_legs": 3,
+        "max_support_legs": 3
+      }
+    },
+    "paper_stability": null,
+    "paper_harmony": null,
+    "paper_displacement": null,
+    "paper_metric_reason": "not measured: no body dynamics/sensor indices or declared Vmax/task normalization",
+    "claim_boundary": "proposed course model; scheduled input; kinematic motion; no terrain/contact-force feedback"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "dt_s": 0.05,
+  "duration_s": 30.0,
+  "window_samples": 50,
+  "window_inclusion": "last 50 paired samples including current; first valid sample time=2.45 s, not 50*dt after first sample",
+  "generator": "continuous sine contact proxy, 1 Hz; 3+3 opposite phase; not binary foot sensing",
+  "perturbations": {
+    "gain_offset": "actual=.2+.5*expected",
+    "mixed_delay": "last three legs delayed 5 samples=.25 s",
+    "all_inverted": "actual=1-expected",
+    "fault": "LF actual=NaN at sample_time=15.00 s"
+  },
+  "correlation": "paired-product Pearson; explicitly proposed course definition, not reproduction of printed Eq.(3)",
+  "sif": "population SD across all six valid SI; unavailable if any leg invalid",
+  "release": "printed Eq.(1), CI=1; Cg/HR/MI recurrence not run",
+  "randomness": "none; deterministic synthetic input"
+}

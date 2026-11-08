@@ -1,0 +1,15 @@
+{
+  "B2_intervals.csv": "e2c3f28a0e38b22c2cd98a94b08222f14e6142f2bb3cad6c98f99320e26ef37b",
+  "B2_states.csv": "b70819a789a801fe67a658c55df7978a398573723d2163a51ebcc02fc496846c",
+  "config.json": "2d13d48f506bde150f880f668fe45d952820ccc22f447c19f4c342268e7f976a",
+  "handoff_contract.json": "50debd932cc9f548ba2e01fafc2b22476640d276e22c09f6b82090493b4e9fca",
+  "metrics.csv": "05f1e025112b03e16f91adac6b170eac347e411fa874ea26e4a19c54f74d8bc0",
+  "metrics.json": "9a9e4937eba12679b79d1f90b3678109249f96b8d9e45cbe0e44b95fe9f8821f",
+  "report.html": "5981d2c32dee0aeaf0584aa2af58fd419e513d1008470de19e971e9833826ccf",
+  "segment_metrics.csv": "63084805b5ee561757ba3edf425f89425f6e30ed6115e2e877e62ab45a675935",
+  "source_snapshot/course_model.py": "88ede293fa3ac9ed2fc326ac7427a019a363b313bf8eacd8c7ee8a378f67747c",
+  "source_snapshot/handoff_contract.json": "50debd932cc9f548ba2e01fafc2b22476640d276e22c09f6b82090493b4e9fca",
+  "source_snapshot/lab05.py": "cf2477146f5e2f11a42ea9e35ad135bf59d0af841ed8aa2c5535fc9e35f5c7c4",
+  "source_snapshot/report_template.html": "8ad1e1850f6696322a80ebb3e72feadcc90a42691edecdccbd20a7b17797269d",
+  "source_snapshot/SOURCES.md": "062c520732e6f5ff733c8af769963d5727981f8bdde79fd66299ab2005990931"
+}

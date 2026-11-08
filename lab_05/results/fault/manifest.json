@@ -1,0 +1,21 @@
+{
+  "B0_intervals.csv": "712a8ccf25b51e7889427001146b52501a09567be2af1104a0bfa9bce4227752",
+  "B0_states.csv": "97abe69de99a8ca23077a1e2ac2dc12a3b86ecd487e271faf19074b8261bf3ce",
+  "B1_intervals.csv": "8e65feb0ad15ccf6bc2085fea0d205aab0c6e997060e7a43f2f05bb5d2456500",
+  "B1_states.csv": "cecb9acf5d1567f117a9575e8b997cf4a4a6bf8ea3f568686b61b516015a3ddb",
+  "B2_intervals.csv": "69d28b885c43a34cf93e66e2f33a93f2169807f927a0e48c42fc9c889f70eb3d",
+  "B2_states.csv": "7472ae2427dae9fb75edccf2109e48562c0e573b04d417b34fd98431ebb29413",
+  "B3_intervals.csv": "40a60af3c0168cfb9b14388f3bdf29faf90968742168ed69dfe7c0709b92464b",
+  "B3_states.csv": "e35460d9a1e9ba568d325f59fecd5248458c8875d1d32c19e2704d178e562b2e",
+  "config.json": "47ec998b979a41da90e2e6f36c0de9484b92b7ff5e6e3bfe5b1dcb5686f7dbfd",
+  "handoff_contract.json": "50debd932cc9f548ba2e01fafc2b22476640d276e22c09f6b82090493b4e9fca",
+  "metrics.csv": "a665cf9f14cbcdd4ea88d7929b63b6a72e02ce0f1accf2e9f37076d86dfa25fa",
+  "metrics.json": "368e010a7c67b9acc6fa673a5f6146aaa37e3d309708389aa38990107d3d611e",
+  "report.html": "65f5587dda688c838ed59bccc499f3635082c9f0025c18e99d6688dcd3f6cc2c",
+  "segment_metrics.csv": "fa837a3871a1397be1c5f1798fed200692672c575c06fc94e3170e11ec119894",
+  "source_snapshot/course_model.py": "88ede293fa3ac9ed2fc326ac7427a019a363b313bf8eacd8c7ee8a378f67747c",
+  "source_snapshot/handoff_contract.json": "50debd932cc9f548ba2e01fafc2b22476640d276e22c09f6b82090493b4e9fca",
+  "source_snapshot/lab05.py": "cf2477146f5e2f11a42ea9e35ad135bf59d0af841ed8aa2c5535fc9e35f5c7c4",
+  "source_snapshot/report_template.html": "8ad1e1850f6696322a80ebb3e72feadcc90a42691edecdccbd20a7b17797269d",
+  "source_snapshot/SOURCES.md": "062c520732e6f5ff733c8af769963d5727981f8bdde79fd66299ab2005990931"
+}

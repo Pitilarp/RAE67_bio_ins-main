@@ -1,0 +1,46 @@
+{
+  "model": "proposed course model",
+  "dt_s": 0.05,
+  "duration_s": 30.0,
+  "h0": 0,
+  "conditions": {
+    "C1": [
+      0.8,
+      0.6,
+      0.2
+    ]
+  },
+  "profile": "one",
+  "controller_source": "student",
+  "controller_sha256": "cf09e2e39cd358fcbe2c8ebdcd2aca57706ca7d8d7b38e79777c1a540bf5cf7f",
+  "runner_sha256": "4acf68979cde5f086e41f82cc5137ab7bac49026184032a2e7ac4943c1abacb4",
+  "contract": {
+    "purpose": "Week03 to Week04 proposed course model",
+    "controlled_parameters": {
+      "phi_rad": {
+        "baseline": 0.2,
+        "gain": 0.2,
+        "bounds": [
+          0.1,
+          0.45
+        ]
+      },
+      "stride_half_m": {
+        "baseline": 0.055,
+        "gain": 0.01,
+        "bounds": [
+          0.04,
+          0.07
+        ]
+      }
+    },
+    "fixed_parameters": {
+      "alpha": 1.1,
+      "dt_s": 0.05,
+      "lift_height_m": 0.03
+    },
+    "claim_boundary": "Subsystem simulation only. No gait, energy, hardware safety or stability claim."
+  },
+  "time_alignment": "row 0 initial; row k+1 = state after input interval [k*dt,(k+1)*dt)",
+  "auc_definition": "left rectangle sum H(t_k)*dt for k=0..599; [0,30)"
+}

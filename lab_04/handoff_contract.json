@@ -1,0 +1,9 @@
+{
+  "purpose": "Week03 to Week04 proposed course model",
+  "controlled_parameters": {
+    "phi_rad": {"baseline": 0.20, "gain": 0.20, "bounds": [0.10, 0.45]},
+    "stride_half_m": {"baseline": 0.055, "gain": 0.010, "bounds": [0.040, 0.070]}
+  },
+  "fixed_parameters": {"alpha": 1.10, "dt_s": 0.05, "lift_height_m": 0.03},
+  "claim_boundary": "Subsystem simulation only. No gait, energy, hardware safety or stability claim."
+}

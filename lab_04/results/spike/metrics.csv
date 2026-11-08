@@ -1,0 +1,2 @@
+﻿condition,profile,peak_h,peak_r,auc_h_left,latency_s,rise_10_90_s,recovery_s,upper_clamp_fraction,lower_clamp_fraction,phi_total_variation_rad,stride_total_variation_m,fault_count,na_reason
+C1,spike,0.04000000000000001,0.04000000000000001,0.049999995781170384,,,,0.0,0.0,0.015999999324987274,0.0007999999662493609,0,C0 has no H; non-step profiles have no step-response timing metrics; recovery may exceed trial

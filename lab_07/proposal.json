@@ -1,0 +1,123 @@
+{
+  "question": "เมื่อใช้ artificial hormone state ที่เปลี่ยนช้าเพื่อปรับ phase increment ของ SO(2) CPG เทียบกับ fixed-parameter baseline จะเปลี่ยนความถี่ nod ที่วัดได้และ tracking error ของแกน nod ในโคมปฏิสัมพันธ์จำลองและบน hardware ที่สอบเทียบแล้วอย่างไร",
+  "hypothesis": "ภายใต้ source interaction trace เดียวกัน AHM condition ที่มี H เพิ่มจาก 0 ไปยัง steady state จะเพิ่ม phi จาก 0.20 ไปไม่เกิน 0.40 rad/update และเพิ่มความถี่ CPG/nod เมื่อเทียบกับ fixed phi=0.20; tracking error ไม่ควรเพิ่มเกินขอบเขตที่กำหนดล่วงหน้า 10% ของ amplitude target ใน simulation และต้องประเมินใหม่จาก hardware จริง การคาดการณ์นี้เป็น hypothesis ของ proposed course model ไม่ใช่ผลที่ยืนยันแล้ว",
+  "biological_inspiration_source": "แนวคิด artificial hormone mechanism สำหรับการปรับการเดินเมื่อสภาพ terrain เปลี่ยน: Homchanthanakul, J., Ngamkajornwiwat, P., Teerakittikul, P., and Manoonpong, P. (2019), Neural Control with an Artificial Hormone System for Energy-Efficient Compliant Terrain Locomotion and Adaptation of Walking Robots, IEEE/RSJ IROS, pp. 5475-5482, DOI https://doi.org/10.1109/IROS40897.2019.8968580. โครงงานยืมแนวคิดตัวแปรภายในที่ปรับช้าเท่านั้น ไม่อ้างว่า H เป็นฮอร์โมนชีวภาพจริงหรือจำลองสมการ paper โดยตรง",
+  "independent_variable": "การใช้ AHM-modulated phase increment เทียบกับ fixed phase increment โดยคง CPG, input trace, pose bounds, output scheduling และจุดเริ่มต้นเหมือนกัน",
+  "AHM_equation": "Proposed course Euler model adapted from Lab04: R_old=clamp((H_old-H_min)/(H_max-H_min),0,1); P=k_prod*S; C=k_clear*H_old; B=k_bind*R_old; H_new=clamp(H_old+dt*(P-C-B),0,1); R_new=clamp(H_new,0,1). H เป็นสถานะไร้มิติ ไม่ใช่ระดับฮอร์โมนชีวภาพ",
+  "SO2_CPG_equation": "Course SO(2) recurrence (Week05/Lec5 slide 18 as referenced by Lab03): a1(t+1)=alpha[cos(phi)o1(t)+sin(phi)o2(t)]; a2(t+1)=alpha[-sin(phi)o1(t)+cos(phi)o2(t)]; o1(t+1)=tanh(a1); o2(t+1)=tanh(a2). Update uses both old outputs simultaneously.",
+  "integration_description": "Implemented as a separate offline proposed-course-model experiment in ahm_cpg_project.py: at each 0.05 s CPG update AHM output R sets phi=clamp(0.20+0.20*R,0.10,0.45) rad/update; alpha remains 1.10. CPG output maps to semantic nod target q_nod=0.10*o1 rad with an explicitly proposed first-order semantic actuator model (tau=0.15 s, slew bound 0.8 rad/s). This is not integrated into the seven-topic ROS bridge or a physical actuator; the FSM/ROS integration remains proposed work.",
+  "conditions": [
+    {
+      "name": "C0 fixed CPG baseline",
+      "baseline": true,
+      "change": "AHM disabled; phi=0.20 rad/update and alpha=1.10 fixed; same initial oscillator state and source stimuli.",
+      "repeats": 3
+    },
+    {
+      "name": "C1 AHM-modulated CPG",
+      "baseline": false,
+      "change": "Enable bounded H dynamics and set phi=clamp(0.20+0.20*R,0.10,0.45); alpha=1.10 remains fixed.",
+      "repeats": 3
+    }
+  ],
+  "metrics": [
+    {
+      "name": "Measured nod frequency",
+      "unit": "Hz",
+      "measurement": "Count positive-going zero crossings of measured nod angle after warm-up; divide by valid observation duration. In simulation use the applied semantic nod trace; on hardware use calibrated encoder or external motion tracking.",
+      "missing_rule": "N/A if fewer than two valid crossings or clock/onset identity is unavailable; report valid duration and trial exclusion reason; do not enter zero."
+    },
+    {
+      "name": "Nod tracking RMSE",
+      "unit": "rad",
+      "measurement": "sqrt(mean((measured_nod_rad-target_nod_rad)^2)) over the predeclared analysis window after aligning clocks with source/trial ID; simulation uses applied command versus target, hardware requires calibrated encoder or external tracker.",
+      "missing_rule": "N/A if the measured physical angle, target trace, clock mapping, or minimum 90% of planned samples is missing; retain the raw trial and reason."
+    }
+  ],
+  "controls": [
+    "Same transition policy, sensor and synthetic input trace IDs, trial duration, initial FSM state and reset procedure across paired conditions.",
+    "Same CPG alpha=1.10, dt=0.05 s, initial outputs o1=0.10 and o2=0, warm-up, nod amplitude, pose bounds and output scheduler; only AHM use/phi mapping differs.",
+    "Same robot, firmware, sensor placement, battery charge range, surface, environment, participant instructions and calibration protocol for each paired physical comparison.",
+    "Use the same software version and interface QoS; log transport delays/drops and do not treat them as physical actuator performance."
+  ],
+  "parameters": [
+    {
+      "name": "AHM update dt",
+      "value": 0.05,
+      "unit": "s",
+      "provenance": "Proposed course experiment value; align with Lab03 CPG time step."
+    },
+    {
+      "name": "AHM production rate k_prod",
+      "value": 0.8,
+      "unit": "normalized H/s",
+      "provenance": "Lab04 proposed course model."
+    },
+    {
+      "name": "AHM clearance rate k_clear",
+      "value": 0.6,
+      "unit": "1/s",
+      "provenance": "Lab04 proposed course model."
+    },
+    {
+      "name": "AHM binding rate k_bind",
+      "value": 0.2,
+      "unit": "normalized H/s",
+      "provenance": "Lab04 proposed course model."
+    },
+    {
+      "name": "AHM stimulus S",
+      "value": "0 at rest; 1 during the predeclared interaction block; identical source IDs in paired conditions",
+      "unit": "normalized 0..1",
+      "provenance": "Proposed protocol; not a measured biological signal."
+    },
+    {
+      "name": "AHM bounds",
+      "value": [
+        0.0,
+        1.0
+      ],
+      "unit": "normalized H",
+      "provenance": "Lab04 proposed course model."
+    },
+    {
+      "name": "SO(2) recurrent gain alpha",
+      "value": 1.1,
+      "unit": "dimensionless",
+      "provenance": "Lab03 baseline proposed course model; held constant."
+    },
+    {
+      "name": "SO(2) phase increment phi",
+      "value": "C0=0.20 rad/update; C1=clamp(0.20+0.20*R,0.10,0.45) rad/update",
+      "unit": "rad/update",
+      "provenance": "Lab03 baseline plus proposed bounded AHM integration."
+    },
+    {
+      "name": "Semantic nod amplitude",
+      "value": 0.1,
+      "unit": "rad",
+      "provenance": "Proposed course mapping only; physical range must be identified and calibrated for the selected robot."
+    },
+    {
+      "name": "Semantic actuator response time constant",
+      "value": 0.15,
+      "unit": "s",
+      "provenance": "Proposed first-order simulation parameter for ahm_cpg_project.py; not measured from hardware."
+    },
+    {
+      "name": "ROS 2 QoS",
+      "value": "RELIABLE, KEEP_LAST depth 10, VOLATILE",
+      "unit": "profile",
+      "provenance": "Lab07 interface contract; must be checked against each real endpoint."
+    }
+  ],
+  "simulation_plan": "Implemented paired C0/C1 simulation in ahm_cpg_project.py with seeds 41,42,43; 10 s warm-up, 10 s stimulus and 30 s analysis window. Store target/applied semantic nod traces, H/R/phi, source IDs, configs, metrics and SHA256 manifest in results/project_ahm_cpg_v2. Lab07 offline bridge transport results remain separate under results/completed and are virtual single-process data, not ROS/DDS. This experiment's actuator is a proposed first-order semantic model, not a physical motor model.",
+  "real_robot_plan": "No robot model, motor driver, MCU, or encoder is identified in the current workspace. After the instructor names the platform, map semantic radian targets to its calibrated actuator interface; bench-test with actuators disabled, then low-energy movement in a guarded area under instructor supervision. Calibrate neutral, direction, per-axis range, slew and encoder/tracker before testing; use driver watchdog and accessible emergency stop. Run at least three paired trials per condition only after approval and calibration; measure angle physically. This is a future protocol, not an experiment completed here.",
+  "clock_correlation_plan": "Every planned trial uses trial_id, source_id and local sequence in host-side sidecar logs. On simulation one virtual monotonic timeline is shared. On ROS/hardware, record monotonic timestamps at sensor acquisition, MCU publish, host receipt, decision, command publish/receipt and measured motion; synchronize host/MCU clocks using a documented method and estimate offset/drift/error bound before comparing. The existing Bool/String/Float32 messages lack Header/identity, so source-to-physical latency remains N/A until a sequence-bearing wrapper or correlated sidecar plus validated clock mapping is implemented.",
+  "safety_stop_plan": "Instructor/operator is present with an accessible hardware emergency stop and independent driver watchdog. Begin motors disabled; verify sensor invalid/stale fallback and stop path before enabling. Stop immediately for unexpected motion, exceeded calibrated range/slew, loss of communication, collision risk, participant discomfort, or any fault; retain logs and record the reason. No real-robot trial is authorized by this proposal alone.",
+  "order_counterbalancing": "Three paired blocks per platform; each block uses one seed/input trace under both C0 and C1. Counterbalance order C0-C1, C1-C0, C0-C1 across blocks; reset and recheck initial state/calibration before each trial, and record order and startup offset.",
+  "paired_seed_or_participant_plan": "Simulation: paired seeds 41,42,43, identical source trace per condition. Human/robot stage: recruit only after instructor/institutional approval and informed consent; participant IDs pseudonymized. Each participant completes paired C0/C1 blocks with counterbalanced order; no identifiable video/data unless separately approved. Repeat count is a pilot minimum, not a powered population claim.",
+  "expected_input_ids_before_run": "Predeclare button_01, touch_01, approach_01, clear_01, near_01, clear_02, button_02 plus touch_conflict, invalid_01, stale_01. Primary interaction denominator is the seven IDs listed first; retain all ten outcomes and report missing/censored separately.",
+  "human_scenario_duration_s": 600,
+  "timeline": "Completed: offline AHM-CPG proposed-model implementation and paired simulation; Lab07 transport simulation; Ubuntu 24.04/ROS 2 Jazzy WSL setup; colcon build and 22 s synthetic ROS smoke/rosbag run. Remaining: confirm exact Lec5 AHM/CPG reference and approved robot/MCU; conduct instructor-led bench calibration and emergency-stop verification. Only after written safety/ethics approval schedule 12 ten-minute scenario trials (3 repeats x 2 conditions x 2 platforms), plus reset/break time; this is at least 120 minutes of scenario time. Analyze locked metrics, missingness and paired effects. No real-robot or participant dates are set until platform and approvals are confirmed."
+}

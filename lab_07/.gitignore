@@ -1,0 +1,10 @@
+# Generated experiment evidence stays local; submit it separately as instructed.
+results/
+logs/
+bags/
+__pycache__/
+*.py[cod]
+# colcon outputs
+build/
+install/
+log/

@@ -1,0 +1,21 @@
+{
+ "provenance":"proposed course model; ROS message definitions from std_msgs",
+ "ROS_target":{"OS":"Ubuntu24.04", "distribution":"Jazzy", "runtime_verification":"not executed on current Windows host"},
+ "topics":[
+ {"name":"/lamp/input/button","type":"std_msgs/msg/Bool","unit":"bool"},
+ {"name":"/lamp/input/touch","type":"std_msgs/msg/Bool","unit":"bool"},
+ {"name":"/lamp/input/distance","type":"std_msgs/msg/Float32","unit":"m"},
+ {"name":"/lamp/interaction","type":"std_msgs/msg/String","unit":"event name"},
+ {"name":"/lamp/emotion","type":"std_msgs/msg/String","unit":"state name"},
+ {"name":"/lamp/servo_command","type":"std_msgs/msg/Float32MultiArray","unit":"rad","order":["tilt","extend","nod"]},
+ {"name":"/lamp/rgb_command","type":"std_msgs/msg/ColorRGBA","unit":"normalized0..1","alpha":1.0}],
+ "QoS":{"reliability":"RELIABLE","history":"KEEP_LAST","depth":10,"durability":"VOLATILE"},
+ "timing":{"offline":"known source_id/source/sample/publish/receive/command virtual timestamps in sidecar traces","ROS":"perf_counter_ns same-host monotonic sidecar receipt/publication times; no Header on seven messages; source-to-physical latency N/A","receipt_freshness_s":0.12},
+ "semantic_joint_bounds_rad":[0.35,0.25,0.30], "slew_rad_s":0.8,
+ "RGB_conversion":"integerchannel/255; alpha=1", "learning":"none in this fixed-FSM lab",
+ "C0":"ideal modeled delivery", "C1":"modeled delay+drop; same guarded policy and source stimuli",
+ "primary_expected_input_ids":["button_01","touch_01","approach_01","clear_01","near_01","clear_02","button_02"],
+ "group_denominator":"predeclare own expected inputs before runs; recompute from source_outcomes",
+ "fault_scope":"offline acquisition sample age; ROS only receipt age, cannot prove source sensor freshness",
+ "Float32MultiArray_status":"deprecated since Foxy; retained as original course interface, future custom message must be versioned"
+}

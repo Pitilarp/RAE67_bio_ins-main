@@ -1,0 +1,14 @@
+event_id,kind,source_time_s,recognized_time_s,input_id,status,decision_time_s,queued_time_s,first_motion_s,first_rgb_s,applied_time_s,old_state,new_state,reason,both_latency_s
+e0001,button,1.0,1.1,button_01,responded,1.1,1.1,1.14,1.14,1.14,normal,interested,,0.14
+e0002,touch,3.0,3.06,touch_01,responded,3.06,3.06,3.1,3.1,3.1,interested,happy,,0.1
+e0003,approach,5.0,5.0,approach_01,responded,5.0,5.0,5.04,5.04,5.04,happy,interested,,0.04
+e0004,clear,6.4,6.4,clear_01,responded,6.4,6.4,6.44,6.44,6.44,interested,normal,,0.04
+e0005,approach,7.0,7.0,near_01,preempted,7.0,7.0,,,,normal,interested,,
+e0006,near,7.0,7.02,near_01,responded,7.02,7.02,7.06,7.06,7.06,interested,afraid,,0.06
+e0007,touch,7.0,7.06,touch_conflict,policy_held,7.06,,,,,afraid,,,
+e0008,clear,9.0,9.0,clear_02,responded,9.0,9.0,9.04,9.04,9.04,afraid,normal,,0.04
+e0009,fault,11.0,11.0,invalid_01,no_state_change,11.0,,,,,normal,normal,,
+e0010,fault,12.0,12.0,stale_01,no_state_change,12.0,,,,,normal,normal,,
+e0011,idle,15.0,15.0,internal_idle,responded,15.0,15.0,15.04,15.04,15.04,normal,sleepy,,0.04
+e0012,button,18.0,18.06,button_02,responded,18.06,18.06,18.1,18.1,18.1,sleepy,interested,,0.1
+e0013,timeout,20.06,20.06,internal_timeout,responded,20.06,20.06,20.1,20.1,20.1,interested,normal,,0.04

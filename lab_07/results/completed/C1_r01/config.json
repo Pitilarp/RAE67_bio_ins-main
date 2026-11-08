@@ -1,0 +1,69 @@
+{
+  "provenance": "proposed course model",
+  "config": {
+    "dt_s": 0.02,
+    "duration_s": 22.0,
+    "scheduler_delay_s": 0.04,
+    "debounce_s": 0.06,
+    "stale_s": 0.12,
+    "near_enter_m": 0.2,
+    "near_exit_m": 0.28,
+    "approach_enter_m": 0.8,
+    "approach_exit_m": 0.95,
+    "active_timeout_s": 2.0,
+    "sleep_after_s": 6.0,
+    "max_slew_rad_s": 0.8,
+    "seed": 41
+  },
+  "topics": {
+    "/lamp/input/button": [
+      "std_msgs/msg/Bool",
+      "bool"
+    ],
+    "/lamp/input/touch": [
+      "std_msgs/msg/Bool",
+      "bool"
+    ],
+    "/lamp/input/distance": [
+      "std_msgs/msg/Float32",
+      "m"
+    ],
+    "/lamp/interaction": [
+      "std_msgs/msg/String",
+      "event name"
+    ],
+    "/lamp/emotion": [
+      "std_msgs/msg/String",
+      "state name"
+    ],
+    "/lamp/servo_command": [
+      "std_msgs/msg/Float32MultiArray",
+      "rad [tilt, extend, nod]"
+    ],
+    "/lamp/rgb_command": [
+      "std_msgs/msg/ColorRGBA",
+      "normalized [0,1]; alpha=1"
+    ]
+  },
+  "transport": {
+    "condition": "C1",
+    "drop_probability": 0.08,
+    "burst_drop_s": [
+      12.5,
+      12.7
+    ],
+    "delay_choices_s": [
+      0.0,
+      0.02,
+      0.04,
+      0.06,
+      0.1,
+      0.14,
+      0.18
+    ]
+  },
+  "replay_trace_sha256": null,
+  "policy_sha256": "5da9da792d0f8d5cb0461efdaae93721c9e5a540bd6b3075d333120a9ca28ee1",
+  "clock": "virtual seconds shared across all offline roles; single process, no DDS",
+  "ROS_target": "Ubuntu24.04/ROS2Jazzy; execution unverified on current Windows host"
+}

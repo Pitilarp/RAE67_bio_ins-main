@@ -1,0 +1,9 @@
+/lamp/emotion
+/lamp/input/button
+/lamp/input/distance
+/lamp/input/touch
+/lamp/interaction
+/lamp/rgb_command
+/lamp/servo_command
+/parameter_events
+/rosout

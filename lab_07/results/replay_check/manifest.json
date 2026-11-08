@@ -1,0 +1,16 @@
+{
+  "sha256": {
+    "C1_r01/command_trace.csv": "574dde4fd613da3b6befe8f4e75a6e9a614325a4437510670b71bb715012b8c8",
+    "C1_r01/config.json": "5aee67065c57fdfc8d1c9c202ca4aa5b72ca616f74449b26de7f6a789519dbdc",
+    "C1_r01/events.csv": "1c1c80503808c50cf076d0dae573298e1a7316a71f38b4cd85bde67ba11943fe",
+    "C1_r01/input_trace.csv": "4002cae46bec4a9199e37f634301a0ac958d9a21d3e5ecd4700b6a39db6e583d",
+    "C1_r01/metrics.json": "5117a1e9bc6443d0643890ef6e805562ddad397bb540568f12240e678ff10303",
+    "report.html": "ac9e2431ae25bf9d273ea6177f6d8ff4185ca648159a14bb26ad4b75d69cb313",
+    "source_snapshot/bridge.py": "a8e3bdd031706c4d176bef07693b7239782dc443c8ca3726b336aa1f929fde65",
+    "source_snapshot/course_model.py": "55ced08d6453c3db30d3c971397c27fb92b20324e611afd7aef9017fc428ec30",
+    "source_snapshot/offline_lab.py": "f4dc70ce61612190fafb164fa7c001959a6a8b008f0baef57695ed79d5fd40f9",
+    "source_snapshot/selected_policy.py": "5da9da792d0f8d5cb0461efdaae93721c9e5a540bd6b3075d333120a9ca28ee1",
+    "summary.json": "dc09c47df228893914fa4147bac550010c01efc400ad4167b247df97a249125e"
+  },
+  "immutability": "do not edit recorded results; rerun into a new directory"
+}

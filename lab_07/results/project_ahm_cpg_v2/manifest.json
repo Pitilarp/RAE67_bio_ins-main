@@ -1,0 +1,25 @@
+{
+  "sha256": {
+    "C0_seed41/config.json": "871056f152d28a47e110c39e7a4962587caaf1952b6d1e990b19b71684cc6c0e",
+    "C0_seed41/metrics.json": "5d6d86bcfcd3219d3bfa59b8d71b694f4fbe248770feef51fecb2a71366acdb2",
+    "C0_seed41/trace.csv": "1af8df992c9f167a84494b052dc8528353353de5d00a4b41167f2a4e9383e1a6",
+    "C0_seed42/config.json": "1b95f0e98000ba6d42713c33dc077d8e021e0f82ada1205e27ec26e3a2ee550b",
+    "C0_seed42/metrics.json": "1a96d6a373b0f060c01ce1a3113904157278dd2621f03ca621ca592defc9b5d6",
+    "C0_seed42/trace.csv": "0efd31a6e5a04acf8a8a86637cf086d97f874f64157b6310a381ac3cc670f0cf",
+    "C0_seed43/config.json": "edb8c382c637bc17a474dd124568a5cad53741afd0f1046733265b688ac7257c",
+    "C0_seed43/metrics.json": "c69530abda50df607f35bca6ff57696f76610d9c4051bb1ee86c46199b61d1ab",
+    "C0_seed43/trace.csv": "f50652ecb6a29b16a90dbe743541aadab928cc07302ce8cfc34c8e70c135a3ed",
+    "C1_seed41/config.json": "640ae286fc449cea689c37faef4f0fb27ceb74bd0e69eb781486d659de255d3d",
+    "C1_seed41/metrics.json": "76097767fae9d95f087a58af0d3e7cb1ec3088c2b20de459bc4247fd434a9570",
+    "C1_seed41/trace.csv": "513d905f8c09bcd7b03cd105056b8961ab0692b0e814ad56b365f4e1ac0c8d95",
+    "C1_seed42/config.json": "4cf051d4fab8754ee9bb8464d890cf8a9d998133ec0ed5a4c1c925026de23f4a",
+    "C1_seed42/metrics.json": "a64ea3005fa198220bc0ed7213671bb8dc52ed8d7422af0fdbf32a912acc9d80",
+    "C1_seed42/trace.csv": "201f282ddb0749d0e5768ecf080901f683daf97d870a3d4579d06a56b56d8e95",
+    "C1_seed43/config.json": "520dc0a529c3565eeed108e76d0a227ab9d2d996b4dbbef2dcc600496d05917a",
+    "C1_seed43/metrics.json": "e1b2ad84360521a26638025fa52f2e3b1e25c34cf62ae0542073af2a5e069a28",
+    "C1_seed43/trace.csv": "603d24fb78bbd92daac9b921be05d3a479548349a1a6fb309d30683abc2db251",
+    "report.html": "69f91a95940ec860e070f92f3de11866e6daea1beefcb3d5efeadbb61fa47aad",
+    "summary.json": "9865a147d97512d649333a5fcecea8297a654d89222ec89180caab06239cad21"
+  },
+  "immutability": "preserve raw project results; rerun into a new directory"
+}

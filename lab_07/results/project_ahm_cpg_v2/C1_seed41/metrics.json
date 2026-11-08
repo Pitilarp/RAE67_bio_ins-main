@@ -1,0 +1,18 @@
+{
+  "condition": "C1",
+  "seed": 41,
+  "source_offset_s": 0.0,
+  "stimulus_on_s": 10.0,
+  "stimulus_off_s": 20.0,
+  "frequency_window_s": 10.0,
+  "positive_crossings_during_stimulus": 12,
+  "nod_frequency_hz": 1.2190369206686913,
+  "tracking_rmse_rad": 0.01803681011611964,
+  "rmse_window_start_s": 10.0,
+  "rmse_window_end_s": 40.0,
+  "rmse_sample_count": 601,
+  "mean_phi_during_stimulus_rad": 0.3760068305842065,
+  "final_h": 7.773933615892005e-08,
+  "physical_measurement": "N/A; semantic applied command in offline model only",
+  "measurement_scope": "offline proposed course model; no ROS/DDS/hardware"
+}

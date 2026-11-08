@@ -1,0 +1,21 @@
+{
+  "provenance": "proposed course model",
+  "condition": "C1",
+  "seed": 43,
+  "paired_source_offset_s": 0.1,
+  "dt_s": 0.05,
+  "duration_s": 40.0,
+  "warmup_end_s": 10.0,
+  "stimulus_duration_s": 10.0,
+  "cpg_alpha": 1.1,
+  "ahm_rates": {
+    "k_prod_normalized_h_per_s": 0.8,
+    "k_clear_per_s": 0.6,
+    "k_bind_normalized_h_per_s": 0.2
+  },
+  "nod_amplitude_rad": 0.1,
+  "actuator_time_constant_s": 0.15,
+  "max_slew_rad_s": 0.8,
+  "integration": "C0 fixed phi=.20 rad/update; C1 phi=clamp(.20+.20*R,.10,.45)",
+  "physical_hardware": "not connected or measured"
+}

@@ -1,0 +1,18 @@
+
+Files:             run01_0.mcap
+Bag size:          479.0 KiB
+Storage id:        mcap
+ROS Distro:        jazzy
+Duration:          22.161809507s
+Start:             Nov  8 2026 20:42:39.261672895 (1794145359.261672895)
+End:               Nov  8 2026 20:43:01.423482402 (1794145381.423482402)
+Messages:          6911
+Topic information: Topic: /lamp/emotion | Type: std_msgs/msg/String | Count: 1105 | Serialization Format: cdr
+                   Topic: /lamp/input/button | Type: std_msgs/msg/Bool | Count: 830 | Serialization Format: cdr
+                   Topic: /lamp/input/distance | Type: std_msgs/msg/Float32 | Count: 830 | Serialization Format: cdr
+                   Topic: /lamp/input/touch | Type: std_msgs/msg/Bool | Count: 830 | Serialization Format: cdr
+                   Topic: /lamp/interaction | Type: std_msgs/msg/String | Count: 1106 | Serialization Format: cdr
+                   Topic: /lamp/rgb_command | Type: std_msgs/msg/ColorRGBA | Count: 1105 | Serialization Format: cdr
+                   Topic: /lamp/servo_command | Type: std_msgs/msg/Float32MultiArray | Count: 1105 | Serialization Format: cdr
+Service:           0
+Service information:
